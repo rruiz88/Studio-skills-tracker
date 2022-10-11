@@ -1,9 +1,7 @@
 package org.launchcode.skillstracker.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @ResponseBody
@@ -27,34 +25,62 @@ public class SkillsController {
     }
 
     @GetMapping("form")
+    @ResponseBody
     //localhost:8080/form
     public String mainForm() {
         return "<html>" +
                 "<body>" +
-                "<form action=''name>" +
+                "<form action='results' method='post'>" +
                 "Name: <input type='text' name='name'><br>" +
                 "<label for='l-select'>My favorite language: </label><br>" +
-                "<select name='language'><br>" +
-                "<option value='java'>Java</option>" +
-                "<option value='js'>JavaScript</option>" +
-                "<option value='python'>Python</option>" +
-                "</select><br>"+
+                "<select name='oneLanguage'><br>" +
+                "<option value='Java'>Java</option>" +
+                "<option value='JavaScript'>JavaScript</option>" +
+                "<option value='Python'>Python</option>" +
+                "</select><br>" +
                 "My second favorite language: <br>" +
-                "<select name='language'><br>" +
-                "<option value='java'>Java</option>" +
-                "<option value='js'>JavaScript</option>" +
-                "<option value='python'>Python</option>" +
+                "<select name='twoLanguage'><br>" +
+                "<option value='Java'>Java</option>" +
+                "<option value='JavaScript'>JavaScript</option>" +
+                "<option value='Python'>Python</option>" +
                 "</select><br>" +
                 "My third favorite language: <br>" +
-                "<select name='language'><br>" +
-                "<option value='java'>Java</option>" +
-                "<option value='js'>JavaScript</option>" +
-                "<option value='python'>Python</option>" +
+                "<select name='threeLanguage'><br>" +
+                "<option value='Java'>Java</option>" +
+                "<option value='JavaScript'>JavaScript</option>" +
+                "<option value='Python'>Python</option>" +
                 "</select><br>" +
                 "<br><input type='submit' value='Submit'>" +
                 "</form>" +
                 "</body>" +
                 "</html>";
     }
+
+//    @RequestMapping(method = RequestMethod.POST)
+//    @ResponseBody
+//    public String resultForm(@RequestParam String name, @RequestParam String oneLanguage, @RequestParam String twoLanguage, @RequestParam String threeLanguage) {
+//        return createForm(name, oneLanguage,twoLanguage,threeLanguage);
+//    }
+
+    @PostMapping("/results")
+    @ResponseBody
+    public String createForm(@RequestParam String name,@RequestParam String oneLanguage,@RequestParam String twoLanguage,@RequestParam String threeLanguage) {
+
+        return "<html>" +
+                "<body>" +
+                "<h1>" + name + "</h1>" +
+                "<ol>" +
+                "<li>" + oneLanguage + "</li>" +
+                "<li>" + twoLanguage + "</li>" +
+                "<li>" + threeLanguage + "</li>" +
+                "</ol>" +
+                "<table>" +
+                "<tr><th>First Language</th><th>Second Language</th><th>Third Language</th></tr>" +
+                "<tr><td>" + oneLanguage + "</td><td>" + twoLanguage + "</td><td>" + threeLanguage + "</td></tr>" +
+                "</table>"+
+                "</body>" +
+                "</html>";
+    }
+
 
 }
